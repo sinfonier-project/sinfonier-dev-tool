@@ -3,6 +3,7 @@
 
 import sys
 import json
+import traceback
 
 MarkEmit = "EMIT:"
 MarkKill = "-ModuleFinishMark-"
@@ -86,12 +87,15 @@ class BaseSinfonierDrain():
 
   def run(self):
     
-    self.initialize()
-    self.userprepare()
-    self.userprocess()
-    self.userclose()
-    print MarkKill
-    sys.stdout.flush()
+    try:
+        self.initialize()
+        self.userprepare()
+        self.userprocess()
+        self.userclose()
+        print MarkKill
+        sys.stdout.flush()
+    except:
+        print traceback.format_exc()
     
   def getJson(self):
       

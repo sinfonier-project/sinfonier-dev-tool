@@ -3,6 +3,7 @@
 
 import sys
 import json
+import traceback
 
 MarkEmit = "EMIT:"
 MarkKill = "-ModuleFinishMark-"
@@ -86,9 +87,12 @@ class BaseSinfonierBolt():
 
   def run(self):
     
-    self.initialize()
-    self.userprepare()
-    self.userprocess()
+    try:
+        self.initialize()
+        self.userprepare()
+        self.userprocess()
+    except:
+        print traceback.format_exc()
 
   def emit(self):
    

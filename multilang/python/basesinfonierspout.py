@@ -3,6 +3,7 @@
 
 import sys
 import json
+import traceback
 
 MarkEmit = "EMIT:"
 MarkKill = "-ModuleFinishMark-"
@@ -91,16 +92,19 @@ class BaseSinfonierSpout():
 
   def run(self):
     
-    self.initialize()
-    self.useropen()
-    # Maximum iterations specified
-    while self.it < self.itmax:
-        # Reset input JSON
-        self.d = self.dinput.copy()
-        self.usernextTuple()
-    self.userclose()
-    print MarkKill
-    sys.stdout.flush()
+    try:
+        self.initialize()
+        self.useropen()
+        # Maximum iterations specified
+        while self.it < self.itmax:
+            # Reset input JSON
+            self.d = self.dinput.copy()
+            self.usernextTuple()
+        self.userclose()
+        print MarkKill
+        sys.stdout.flush()
+    except:
+        print traceback.format_exc()
 
   def emit(self):
     
